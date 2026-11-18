@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Al Jaber Mahmud</title>
+<meta name="description" content="Al Jaber Mahmud — Ph.D. student at George Mason University working on human–robot collaboration, mobile manipulation, and robot planning.">
+<meta property="og:title" content="Al Jaber Mahmud">
+<meta property="og:description" content="Robotics researcher: human–robot co-transportation, mobile manipulation, planning and control.">
+<meta property="og:image" content="images/profile.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F7F5;
+    --panel:#FFFFFF;
+    --ink:#16202E;
+    --slate:#586474;
+    --rule:#D9DEE2;
+    --teal:#0E6B70;
+    --teal-soft:#E3F0EF;
+    --amber:#F2B632;
+    --amber-soft:#FCEFC8;
+    --sans:"Schibsted Grotesk", system-ui, sans-serif;
+    --serif:"Source Serif 4", Georgia, serif;
+    --measure:68ch;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:72px}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0; background:var(--paper); color:var(--ink); font:400 1.0625rem/1.65 var(--serif); -webkit-font-smoothing:antialiased}
+  a{color:var(--teal); text-decoration-thickness:1px; text-underline-offset:3px}
+  a:hover{text-decoration-thickness:2px}
+  :focus-visible{outline:2px solid var(--teal); outline-offset:3px; border-radius:2px}
+  h1,h2,h3,h4{font-family:var(--sans); line-height:1.2; margin:0}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px}
+
+  /* ---------- top nav ---------- */
+  .nav{position:sticky; top:0; z-index:10; background:color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--rule)}
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:56px; gap:16px}
+  .nav .home{font:600 1rem var(--sans); color:var(--ink); text-decoration:none; white-space:nowrap}
+  .nav ul{display:flex; gap:22px; list-style:none; margin:0; padding:0; overflow-x:auto; scrollbar-width:none}
+  .nav ul::-webkit-scrollbar{display:none}
+  .nav ul a{font:500 .9375rem var(--sans); color:var(--slate); text-decoration:none; white-space:nowrap}
+  .nav ul a:hover{color:var(--ink)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 56px; display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:56px; align-items:center}
+  .ident{display:flex; align-items:center; gap:18px; margin-bottom:24px}
+  .avatar{position:relative; width:96px; height:96px; border-radius:50%; overflow:hidden; flex:none; background:var(--ink); color:var(--paper); display:grid; place-items:center; font:600 1.5rem var(--sans); letter-spacing:.02em}
+  .avatar img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+  .hero h1{font-size:clamp(2rem, 3.6vw, 2.75rem); font-weight:700; letter-spacing:-.02em}
+  .role{font:500 1rem/1.4 var(--sans); color:var(--slate); margin-top:6px}
+  .bio{max-width:var(--measure); margin:0 0 22px}
+  .bio p{margin:0 0 12px}
+  .links{display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:0; list-style:none}
+  .links a{display:inline-flex; align-items:center; gap:7px; font:500 .9375rem var(--sans); color:var(--ink); text-decoration:none; padding:7px 13px; border:1px solid var(--rule); border-radius:999px; background:var(--panel)}
+  .links a:hover{border-color:var(--ink)}
+  .links a.primary{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+  .links svg{width:16px; height:16px; flex:none}
+
+  .diagram{margin:0}
+  .diagram svg{width:100%; height:auto; display:block; color:var(--ink)}
+  .diagram figcaption{font:400 .875rem/1.5 var(--sans); color:var(--slate); margin-top:10px; max-width:46ch}
+  .board{transform-origin:236px 160px; transform-box:view-box; animation:sway 3.2s cubic-bezier(.4,0,.2,1) .4s 1 both}
+  .disturb{animation:pulse 3.2s ease .4s 1 both}
+  @keyframes sway{0%{transform:rotate(0)}22%{transform:rotate(-5deg)}48%{transform:rotate(2.2deg)}72%{transform:rotate(-.8deg)}100%{transform:rotate(0)}}
+  @keyframes pulse{0%{opacity:0}12%{opacity:1}70%{opacity:1}100%{opacity:.6}}
+  @media (prefers-reduced-motion:reduce){.board,.disturb{animation:none}.disturb{opacity:.6}}
+
+  /* ---------- sections ---------- */
+  section{padding:56px 0; border-top:1px solid var(--rule)}
+  .sec-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:28px}
+  h2{font-size:1.75rem; font-weight:700; letter-spacing:-.015em}
+  .sec-head p{margin:0; color:var(--slate); font:400 .9375rem var(--sans)}
+
+  /* news */
+  .news{list-style:none; padding:0; margin:0; max-width:820px}
+  .news li{display:grid; grid-template-columns:96px 1fr; gap:20px; padding:10px 0; border-bottom:1px dashed var(--rule)}
+  .news li:last-child{border-bottom:0}
+  .news time{font:600 .9375rem/1.65 var(--sans); color:var(--slate); font-variant-numeric:tabular-nums}
+  .news .venue{font-family:var(--sans); font-weight:600}
+  .news li.older{display:none}
+  .news.open li.older{display:grid}
+  .toggle{margin-top:14px; font:500 .9375rem var(--sans); color:var(--teal); background:none; border:0; padding:6px 0; cursor:pointer}
+  .toggle:hover{text-decoration:underline; text-underline-offset:3px}
+
+  /* research */
+  .question{margin:0 0 20px; padding:4px 0 4px 22px; border-left:4px solid var(--amber); font:italic 400 clamp(1.3rem,2.4vw,1.6rem)/1.4 var(--serif); max-width:40ch}
+  .lede{max-width:var(--measure); margin:0 0 36px}
+  .themes{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:56px}
+  .theme-link{display:block; text-decoration:none; color:var(--ink); background:var(--panel); border:1px solid var(--rule); border-radius:10px; padding:16px 18px 18px}
+  .theme-link:hover{border-color:var(--ink)}
+  .theme-link svg{width:100%; height:auto; aspect-ratio:16/10; display:block; color:var(--ink); margin-bottom:14px; border-radius:6px}
+  .theme-link strong{font:600 1.0625rem/1.3 var(--sans); display:block}
+  .theme-link span{font:400 .875rem var(--sans); color:var(--slate)}
+
+  .theme{margin-bottom:56px}
+  .theme:last-child{margin-bottom:0}
+  .theme h3{font-size:1.375rem; font-weight:700; letter-spacing:-.01em; margin-bottom:8px}
+  .theme > p{max-width:var(--measure); margin:0 0 24px; color:#2b3644}
+
+  .paper{display:grid; grid-template-columns:260px minmax(0,1fr); gap:28px; padding:24px 0; border-top:1px solid var(--rule)}
+  .thumb{position:relative; margin:0; aspect-ratio:16/10; border-radius:8px; overflow:hidden; background:var(--panel); border:1px solid var(--rule); color:var(--ink)}
+  .thumb > svg{position:absolute; inset:0; width:100%; height:100%}
+  .thumb img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:var(--panel)}
+  .thumb a{position:absolute; inset:0}
+  .meta{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px}
+  .badge{font:600 .8125rem/1 var(--sans); padding:5px 9px; border-radius:5px; background:var(--teal-soft); color:var(--teal)}
+  .badge.first{background:var(--amber-soft); color:#6B4A00}
+  .badge.award{background:var(--ink); color:var(--paper)}
+  .badge.wip{background:transparent; color:var(--slate); border:1px dashed #A9B2BC}
+  .paper h4{font-size:1.1875rem; font-weight:600; line-height:1.3; margin-bottom:6px}
+  .paper h4 a{color:var(--ink); text-decoration:none}
+  .paper h4 a:hover{text-decoration:underline}
+  .authors{font:400 .9375rem/1.5 var(--sans); color:var(--slate); margin:0 0 10px}
+  .me{color:var(--ink); font-weight:600}
+  .summary{margin:0 0 12px; max-width:var(--measure)}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; list-style:none; padding:0; margin:0 0 12px}
+  .tags li{font:400 .8125rem var(--sans); color:var(--slate); padding:3px 9px; border:1px solid var(--rule); border-radius:999px; background:var(--panel)}
+  .plinks{display:flex; flex-wrap:wrap; gap:18px; font:600 .9375rem var(--sans)}
+  .plinks .muted{color:var(--slate); font-weight:400}
+
+  /* videos */
+  .videos{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+  .video{display:block; text-decoration:none; color:var(--ink)}
+  .video .frame{position:relative; aspect-ratio:16/9; border-radius:8px; overflow:hidden; background:var(--ink)}
+  .video img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+  .video .play{position:absolute; left:50%; top:50%; width:56px; height:56px; margin:-28px 0 0 -28px; border-radius:50%; background:rgba(255,255,255,.92); display:grid; place-items:center}
+  .video .play svg{width:20px; height:20px; margin-left:3px; color:var(--ink)}
+  .video span{display:block; font:500 .9375rem var(--sans); margin-top:8px}
+  .video:hover .play{background:var(--amber)}
+
+  /* publications */
+  .pubgroup{margin-bottom:36px}
+  .pubgroup h3{font-size:1.0625rem; font-weight:600; color:var(--slate); margin-bottom:10px}
+  .pubs{list-style:none; padding:0; margin:0}
+  .pubs li{display:grid; grid-template-columns:44px 1fr; gap:12px; padding:12px 0; border-top:1px solid var(--rule)}
+  .pubs .num{font:600 .875rem/1.65 var(--sans); color:var(--slate)}
+  .pubs .t{font-weight:600}
+  .pubs .v{font-style:italic}
+  .pubs .a{font-family:var(--sans); font-size:.9375rem; color:var(--slate)}
+
+  /* talks + education */
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:56px}
+  .timeline{list-style:none; padding:0; margin:0}
+  .timeline li{padding:12px 0; border-top:1px solid var(--rule)}
+  .timeline strong{font:600 1rem/1.4 var(--sans); display:block}
+  .timeline .when{font:500 .875rem var(--sans); color:var(--slate)}
+  .timeline p{margin:4px 0 0; font-size:.9875rem}
+
+  footer{border-top:1px solid var(--rule); padding:28px 0 48px; font:400 .875rem var(--sans); color:var(--slate)}
+  footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr; gap:32px; padding-top:40px}
+    .themes,.videos{grid-template-columns:1fr}
+    .two{grid-template-columns:1fr; gap:40px}
+  }
+  @media (max-width:680px){
+    .wrap{padding:0 20px}
+    .nav .home{display:none}
+    .paper{grid-template-columns:1fr; gap:16px}
+    .news li{grid-template-columns:1fr; gap:0}
+    .sec-head{flex-direction:column; gap:4px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Line-drawing glyphs used as fallback thumbnails. Drop a real image into /images to replace them. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="g-cotransport" viewBox="0 0 320 200">
+      <rect width="320" height="200" fill="#F6F7F5"/>
+      <line x1="20" y1="170" x2="300" y2="170" stroke="#D9DEE2" stroke-width="2"/>
+      <circle cx="70" cy="62" r="11" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M70 73v52M70 125l-12 44M70 125l12 44M70 90l38 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <rect x="106" y="98" width="118" height="7" rx="2" fill="#F2B632"/>
+      <path d="M224 101l14 -18l26 -6v65" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="238" y="140" width="56" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <circle cx="250" cy="164" r="6" fill="#F6F7F5" stroke="currentColor" stroke-width="2.5"/>
+      <circle cx="282" cy="164" r="6" fill="#F6F7F5" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M165 120v26" stroke="#0E6B70" stroke-width="2" stroke-dasharray="4 4"/>
+      <path d="M160 141l5 7l5-7" fill="none" stroke="#0E6B70" stroke-width="2"/>
+    </symbol>
+    <symbol id="g-contact" viewBox="0 0 320 200">
+      <rect width="320" height="200" fill="#F6F7F5"/>
+      <line x1="20" y1="168" x2="300" y2="168" stroke="#D9DEE2" stroke-width="2"/>
+      <rect x="262" y="30" width="14" height="138" fill="#D9DEE2"/>
+      <rect x="92" y="98" width="96" height="28" rx="8" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M104 126l-8 20l8 22M176 126l8 20l-8 22M120 126l-6 20l6 22M162 126l6 20l-6 22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M170 98l26 -42l40 10l26 4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="262" cy="70" r="7" fill="#F2B632"/>
+      <path d="M248 70h-30" stroke="#0E6B70" stroke-width="2"/>
+      <path d="M224 65l-7 5l7 5" fill="none" stroke="#0E6B70" stroke-width="2"/>
+    </symbol>
+    <symbol id="g-openings" viewBox="0 0 320 200">
+      <rect width="320" height="200" fill="#F6F7F5"/>
+      <rect x="90" y="20" width="12" height="62" fill="#D9DEE2"/><rect x="90" y="112" width="12" height="68" fill="#D9DEE2"/>
+      <rect x="160" y="20" width="12" height="96" fill="#D9DEE2"/><rect x="160" y="142" width="12" height="38" fill="#D9DEE2"/>
+      <rect x="230" y="20" width="12" height="40" fill="#D9DEE2"/><rect x="230" y="88" width="12" height="92" fill="#D9DEE2"/>
+      <path d="M36 140 C70 100, 80 96, 96 97 S150 132, 166 129 S216 74, 236 74 S276 60, 292 50" fill="none" stroke="#0E6B70" stroke-width="2" stroke-dasharray="5 5"/>
+      <g fill="currentColor"><circle cx="36" cy="140" r="4"/><circle cx="96" cy="97" r="4"/><circle cx="166" cy="129" r="4"/><circle cx="236" cy="74" r="4"/><circle cx="292" cy="50" r="4"/></g>
+      <rect x="22" y="132" width="30" height="16" rx="2" transform="rotate(-30 37 140)" fill="#F2B632"/>
+    </symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="home" href="#top">Al Jaber Mahmud</a>
+    <ul>
+      <li><a href="#news">News</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#talks">Talks</a></li>
+      <li><a href="https://drive.google.com/file/d/137fPS8Ast1CToqQZFTfhrD2gHrDY2rYj/view?usp=sharing">CV</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top" class="wrap">
+
+  <!-- ================= INTRO ================= -->
+  <header class="hero">
+    <div>
+      <div class="ident">
+        <div class="avatar" aria-hidden="true">AJM
+          <!-- Put your headshot at images/profile.jpg (square works best) -->
+          <img src="images/profile.jpg" alt="" onerror="this.remove()">
+        </div>
+        <div>
+          <h1>Al Jaber Mahmud</h1>
+          <div class="role">Ph.D. student, Electrical &amp; Computer Engineering<br>George Mason University</div>
+        </div>
+      </div>
+      <div class="bio">
+        <p>I'm a graduate research assistant in the <a href="https://mason.gmu.edu/~xwang64/index.html">Multi-agent Intelligence, Control, and Optimization (MICO) Lab</a>, advised by Prof. Xuan Wang. I build robots that work physically alongside people: planning, control, and learning methods for human–robot co-transportation and autonomous mobile manipulation, running on ROS 2 hardware.</p>
+        <p>My interests span mobile manipulation, human–robot interaction, task and motion planning, robot learning, and optimal control.</p>
+      </div>
+      <ul class="links">
+        <li><a class="primary" href="https://drive.google.com/file/d/137fPS8Ast1CToqQZFTfhrD2gHrDY2rYj/view?usp=sharing">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>CV</a></li>
+        <li><a href="https://scholar.google.com/citations?user=-7MoXFEAAAAJ&amp;hl=en">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.9V17h2V9z"/><path d="M5 13.2v3.3C5 18.4 8.1 20 12 20s7-1.6 7-3.5v-3.3l-7 3.8z"/></svg>Google Scholar</a></li>
+        <li><a href="https://github.com/jabermahmud24">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.6.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/al-jaber-mahmud-a41614193/">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>LinkedIn</a></li>
+        <li><a href="https://www.researchgate.net/profile/Al-Jaber-Mahmud">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 17V8h3.5a2.5 2.5 0 0 1 0 5H8m3.5 0L15 17"/></svg>ResearchGate</a></li>
+        <!-- Add your email by uncommenting the line below:
+        <li><a href="mailto:you@gmu.edu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>you@gmu.edu</a></li>
+        -->
+      </ul>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 480 300" role="img" aria-labelledby="dg-t">
+        <title id="dg-t">Diagram of a person and a mobile manipulator robot carrying a board together while a disturbance pushes on it.</title>
+        <line x1="20" y1="272" x2="460" y2="272" stroke="#D9DEE2" stroke-width="2"/>
+        <!-- planned path -->
+        <path d="M120 66 C190 30, 290 30, 360 62" fill="none" stroke="#0E6B70" stroke-width="1.75" stroke-dasharray="6 6"/>
+        <path d="M352 54l9 8l-11 3" fill="none" stroke="#0E6B70" stroke-width="1.75"/>
+        <text x="240" y="28" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-style="italic" font-size="15" fill="#0E6B70">shared plan, uncertain intent</text>
+        <!-- human -->
+        <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="88" cy="108" r="15"/>
+          <path d="M88 123v76M88 199l-15 70M88 199l15 70M88 146l50 14"/>
+        </g>
+        <!-- shared object -->
+        <g class="board">
+          <rect x="136" y="155" width="200" height="10" rx="2" fill="#F2B632"/>
+          <g stroke="currentColor" stroke-width="1.75" fill="none">
+            <path d="M150 150v-34M144 122l6-8l6 8"/>
+            <path d="M322 150v-34M316 122l6-8l6 8"/>
+          </g>
+          <text x="134" y="112" font-family="Source Serif 4, Georgia, serif" font-style="italic" font-size="17" fill="currentColor">f<tspan font-size="12" dy="4">h</tspan></text>
+          <text x="330" y="112" font-family="Source Serif 4, Georgia, serif" font-style="italic" font-size="17" fill="currentColor">f<tspan font-size="12" dy="4">r</tspan></text>
+        </g>
+        <!-- disturbance -->
+        <g class="disturb" stroke="#0E6B70" stroke-width="2" fill="none">
+          <path d="M250 222v-44" stroke-dasharray="5 5"/>
+          <path d="M243 186l7-9l7 9"/>
+          <text x="262" y="214" stroke="none" fill="#0E6B70" font-family="Source Serif 4, Georgia, serif" font-style="italic" font-size="17">d(t)</text>
+        </g>
+        <!-- mobile manipulator -->
+        <g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+          <rect x="350" y="226" width="96" height="30" rx="6"/>
+          <path d="M412 226V118"/>
+          <rect x="400" y="92" width="26" height="18" rx="3"/>
+          <path d="M412 132l-46 -6l-26 34"/>
+          <path d="M340 160l-6 -6M340 160l-6 6"/>
+        </g>
+        <circle cx="368" cy="262" r="10" fill="#F6F7F5" stroke="currentColor" stroke-width="3"/>
+        <circle cx="428" cy="262" r="10" fill="#F6F7F5" stroke="currentColor" stroke-width="3"/>
+        <circle cx="412" cy="132" r="4" fill="currentColor"/><circle cx="366" cy="126" r="4" fill="currentColor"/>
+      </svg>
+      <figcaption>A person and a mobile manipulator share one load. The robot can feel only part of what its partner intends, and still has to keep the object steady.</figcaption>
+    </figure>
+  </header>
+
+  <!-- ================= NEWS ================= -->
+  <section id="news">
+    <div class="sec-head"><h2>News</h2></div>
+    <ul class="news" id="newsList">
+      <li><time>Sep 2026</time><span>Presented our mutual-adaptation paper at <span class="venue">IROS 2026</span> in Pittsburgh, USA.</span></li>
+      <li><time>Sep 2026</time><span>Submitted two papers to <span class="venue">ICRA 2027</span>.</span></li>
+      <li><time>Jun 2026</time><span><a href="https://arxiv.org/abs/2503.08895">Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty</a> accepted at <span class="venue">IROS 2026</span>.</span></li>
+      <li><time>Mar 2026</time><span>Preprint: <a href="https://arxiv.org/abs/2603.16028">Geometry-Aligned LLM Fine-Tuning for Sequential Narrow-Opening Planning</a> is on <span class="venue">arXiv</span>.</span></li>
+      <li><time>Oct 2025</time><span>Attended <span class="venue">IROS 2025</span> in Hangzhou, China.</span></li>
+      <li class="older"><time>Jun 2025</time><span><a href="https://www.mdpi.com/2079-9292/14/12/2480">DARC: Disturbance-Aware Redundant Control for Human–Robot Co-Transportation</a> published in <span class="venue">Electronics</span>.</span></li>
+      <li class="older"><time>Jun 2025</time><span><a href="https://ieeexplore.ieee.org/abstract/document/11246189">Human-Robot Co-Transportation using Disturbance-Aware MPC with Pose Optimization</a> accepted at <span class="venue">IROS 2025</span>.</span></li>
+      <li class="older"><time>May 2025</time><span>Completed my M.S. in Electrical Engineering (Control and Robotics) at George Mason University.</span></li>
+      <li class="older"><time>Dec 2024</time><span>Passed my Ph.D. Research Qualifying Exam.</span></li>
+      <li class="older"><time>May 2024</time><span>Our workshop poster at <span class="venue">ICRA 2024</span> (Yokohama) was a Best Poster Finalist.</span></li>
+      <li class="older"><time>Mar 2024</time><span>Our lab's human–robot collaboration work was featured by George Mason: <a href="https://content.gmu.edu/news/2024-03/teaching-humans-play-safe">Teaching humans to play safe</a>.</span></li>
+    </ul>
+    <button class="toggle" id="newsToggle" aria-expanded="false" aria-controls="newsList">Show older news</button>
+  </section>
+
+  <!-- ================= RESEARCH ================= -->
+  <section id="research">
+    <div class="sec-head"><h2>Research</h2></div>
+    <blockquote class="question">How should a robot act when its partner, or the world it leans on, is only partly known?</blockquote>
+    <p class="lede">My work sits where physical interaction meets uncertainty. When a robot shares a load with a person, it has to infer their intent from forces and motion. When a legged robot braces against a wall, it has to decide which contacts are worth trusting. And when a planner proposes a path, it has to respect geometry it can't simply guess. These three threads organize the projects below.</p>
+
+    <div class="themes">
+      <a class="theme-link" href="#theme-hrc">
+        <svg aria-hidden="true"><use href="#g-cotransport"/></svg>
+        <strong>Human–robot co-transportation</strong>
+        <span>4 papers, IROS 2025 and 2026</span>
+      </a>
+      <a class="theme-link" href="#theme-contact">
+        <svg aria-hidden="true"><use href="#g-contact"/></svg>
+        <strong>Loco-manipulation with support contacts</strong>
+        <span>Ongoing, on Unitree Go2 hardware</span>
+      </a>
+      <a class="theme-link" href="#theme-llm">
+        <svg aria-hidden="true"><use href="#g-openings"/></svg>
+        <strong>Language models for geometric planning</strong>
+        <span>arXiv preprint, 2026</span>
+      </a>
+    </div>
+
+    <!-- ---------- THEME 1 ---------- -->
+    <div class="theme" id="theme-hrc">
+      <h3>Human–robot co-transportation</h3>
+      <p>Carrying an object together is easy for two people and hard for a person and a robot. The robot sees the human only through the forces and motion they put into the shared object. I model that uncertainty directly, with planners that anticipate disturbances and controllers that decide when the robot should lead and when it should follow.</p>
+
+      <!-- To add a project, copy one <article class="paper"> block and edit it. -->
+      <article class="paper">
+        <figure class="thumb">
+          <svg aria-hidden="true"><use href="#g-cotransport"/></svg>
+          <img src="images/mutual-adaptation.jpg" alt="Mutual adaptation co-transportation experiment" onerror="this.remove()">
+        </figure>
+        <div>
+          <div class="meta"><span class="badge">IROS 2026</span><span class="badge first">First author</span></div>
+          <h4><a href="https://arxiv.org/abs/2503.08895">Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty</a></h4>
+          <p class="authors"><span class="me">Al Jaber Mahmud</span>, Weizi Li, Xuan Wang</p>
+          <p class="summary">The robot represents its partner's preference as a probability distribution and tracks a time-varying "stubbornness" estimate, so it leads when confident and yields when the person pushes back. A probability-weighted pose optimizer keeps low-level control stable when the human takes over. Validated in simulation and a 20-participant user study.</p>
+          <ul class="tags"><li>Human preference uncertainty</li><li>Shared leadership</li><li>Pose optimization</li><li>User study</li></ul>
+          <div class="plinks"><a href="https://arxiv.org/abs/2503.08895">Paper</a><a href="https://arxiv.org/pdf/2503.08895">PDF</a></div>
+        </div>
+      </article>
+
+      <article class="paper">
+        <figure class="thumb">
+          <svg aria-hidden="true"><use href="#g-cotransport"/></svg>
+          <img src="images/darc.jpg" alt="DARC on a Fetch mobile manipulator" onerror="this.remove()">
+        </figure>
+        <div>
+          <div class="meta"><span class="badge">Electronics 2025</span><span class="badge first">First author</span></div>
+          <h4><a href="https://www.mdpi.com/2079-9292/14/12/2480">DARC: Disturbance-Aware Redundant Control for Human–Robot Co-Transportation</a></h4>
+          <p class="authors"><span class="me">Al Jaber Mahmud</span>, Amir Hossain Raj, Duc M. Nguyen, Xuesu Xiao, Xuan Wang</p>
+          <p class="summary">Extends disturbance-aware MPC with learned components: a CVAE samples redundant arm configurations and picks the one with the lowest predicted control cost, while an LSTM predicts the human's motion. On a Fetch mobile manipulator, DARC achieved lower cumulative cost than baselines missing disturbance modeling, pose optimization, or both, across trajectories and disturbance levels.</p>
+          <ul class="tags"><li>Model predictive control</li><li>CVAE</li><li>LSTM motion prediction</li><li>Redundancy resolution</li></ul>
+          <div class="plinks"><a href="https://www.mdpi.com/2079-9292/14/12/2480">Paper</a></div>
+        </div>
+      </article>
+
+      <article class="paper">
+        <figure class="thumb">
+          <svg aria-hidden="true"><use href="#g-cotransport"/></svg>
+          <img src="images/da-mpc.jpg" alt="Disturbance-aware MPC co-transportation" onerror="this.remove()">
+        </figure>
+        <div>
+          <div class="meta"><span class="badge">IROS 2025</span><span class="badge first">First author</span></div>
+          <h4><a href="https://ieeexplore.ieee.org/abstract/document/11246189">Human-Robot Co-Transportation using Disturbance-Aware MPC with Pose Optimization</a></h4>
+          <p class="authors"><span class="me">Al Jaber Mahmud</span>, Amir Hossain Raj, Duc M. Nguyen, Weizi Li, Xuesu Xiao, Xuan Wang</p>
+          <p class="summary">An MPC planner that explicitly models disturbances from the human partner, paired with proactive pose optimization that keeps the mobile manipulator in configurations best able to absorb them. Demonstrated on a Fetch robot.</p>
+          <ul class="tags"><li>Model predictive control</li><li>Whole-body control</li><li>Mobile manipulation</li></ul>
+          <div class="plinks"><a href="https://ieeexplore.ieee.org/abstract/document/11246189">Paper</a><a href="https://arxiv.org/abs/2404.00514">arXiv</a></div>
+        </div>
+      </article>
+
+      <article class="paper">
+        <figure class="thumb">
+          <svg aria-hidden="true"><use href="#g-cotransport"/></svg>
+          <img src="images/hua-mpc.jpg" alt="Human uncertainty-aware MPC" onerror="this.remove()">
+        </figure>
+        <div>
+          <div class="meta"><span class="badge">ICPS 2024</span><span class="badge first">First author</span><span class="badge award">ICRA 2024 workshop: Best Poster Finalist</span></div>
+          <h4><a href="https://ieeexplore.ieee.org/document/10640020">Human Uncertainty-Aware MPC for Enhanced Human-Robot Collaborative Manipulation</a></h4>
+          <p class="authors"><span class="me">Al Jaber Mahmud</span>, Duc M. Nguyen, Filipe Veiga, Xuesu Xiao, Xuan Wang</p>
+          <p class="summary">The starting point for this line of work: an MPC formulation that accounts for uncertainty in the human's actions during collaborative manipulation. A follow-up poster at the ICRA 2024 human–robot co-manipulation workshop was a Best Poster Finalist.</p>
+          <ul class="tags"><li>Model predictive control</li><li>Human uncertainty</li><li>Collaborative manipulation</li></ul>
+          <div class="plinks"><a href="https://ieeexplore.ieee.org/document/10640020">Paper</a></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- ---------- THEME 2 ---------- -->
+    <div class="theme" id="theme-contact">
+      <h3>Loco-manipulation with support contacts</h3>
+      <p>A legged manipulator can push harder and reach farther if it's allowed to brace against its surroundings. I'm building whole-body planners that decide where and how the robot should make support contacts, along with the ROS 2 stack that runs them on real hardware.</p>
+
+      <article class="paper">
+        <figure class="thumb">
+          <svg aria-hidden="true"><use href="#g-contact"/></svg>
+          <img src="images/ctcs.jpg" alt="Unitree Go2 with AgileX NERO arm" onerror="this.remove()">
+        </figure>
+        <div>
+          <div class="meta"><span class="badge wip">Ongoing</span><span class="badge">Hardware</span></div>
+          <h4>CTCS: Whole-body optimization for environmental support contacts</h4>
+          <p class="summary">Selects support contacts by scoring each candidate on wrench, reach, and mobility capability. Evaluated on a Unitree Go2 carrying an AgileX NERO arm, in simulation and on hardware across 392 tasks, running 3× faster than exhaustive search. Includes ROS 2 packages for arm actuation, robot-state feedback, command validation, and Go2 integration.</p>
+          <ul class="tags"><li>Whole-body optimization</li><li>Contact planning</li><li>Legged manipulation</li><li>ROS 2</li></ul>
+          <div class="plinks"><span class="muted">Paper coming soon</span></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- ---------- THEME 3 ---------- -->
+    <div class="theme" id="theme-llm">
+      <h3>Language models for geometric planning</h3>
+      <p>Language models propose plans quickly, but they don't natively respect geometry. I fine-tune them against geometric verifiers so that what they propose is physically feasible.</p>
+
+      <article class="paper">
+        <figure class="thumb">
+          <svg aria-hidden="true"><use href="#g-openings"/></svg>
+          <img src="images/narrow-openings.jpg" alt="Planning through sequential narrow openings" onerror="this.remove()">
+        </figure>
+        <div>
+          <div class="meta"><span class="badge">arXiv 2026</span><span class="badge first">First author</span></div>
+          <h4><a href="https://arxiv.org/abs/2603.16028">Geometry-Aligned LLM Fine-Tuning for Sequential Narrow-Opening Planning</a></h4>
+          <p class="authors"><span class="me">Al Jaber Mahmud</span>, Xuan Wang</p>
+          <p class="summary">Moving a rigid body through a chain of tight openings, where the pose used for one passage constrains the next. The LLM is LoRA fine-tuned on failure-annotated demonstrations, then trained with GRPO against a geometric verifier on waypoint plans densified by a model-based planner. It reached 92.6% success in-distribution and 77.3% out-of-distribution across 1,500 simulated environments.</p>
+          <ul class="tags"><li>LLM fine-tuning</li><li>LoRA</li><li>GRPO</li><li>Motion planning</li></ul>
+          <div class="plinks"><a href="https://arxiv.org/abs/2603.16028">Paper</a><a href="https://arxiv.org/pdf/2603.16028">PDF</a></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= VIDEOS ================= -->
+  <section id="videos">
+    <div class="sec-head"><h2>Videos</h2><p>Robot demonstrations from the lab</p></div>
+    <div class="videos">
+      <!-- Rename each caption to say what the video shows. -->
+      <a class="video" href="https://www.youtube.com/watch?v=nQgOLSUQSG0">
+        <div class="frame"><img src="https://i.ytimg.com/vi/nQgOLSUQSG0/hqdefault.jpg" alt="" onerror="this.remove()"><div class="play"><svg><use href="#i-play"/></svg></div></div>
+        <span>Demo 1</span>
+      </a>
+      <a class="video" href="https://www.youtube.com/watch?v=M5kvQax7I7U">
+        <div class="frame"><img src="https://i.ytimg.com/vi/M5kvQax7I7U/hqdefault.jpg" alt="" onerror="this.remove()"><div class="play"><svg><use href="#i-play"/></svg></div></div>
+        <span>Demo 2</span>
+      </a>
+      <a class="video" href="https://www.youtube.com/watch?v=he3-pXMZOXk">
+        <div class="frame"><img src="https://i.ytimg.com/vi/he3-pXMZOXk/hqdefault.jpg" alt="" onerror="this.remove()"><div class="play"><svg><use href="#i-play"/></svg></div></div>
+        <span>Demo 3</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= PUBLICATIONS ================= -->
+  <section id="publications">
+    <div class="sec-head"><h2>Publications</h2><p>Full list on <a href="https://scholar.google.com/citations?user=-7MoXFEAAAAJ&amp;hl=en">Google Scholar</a></p></div>
+
+    <div class="pubgroup">
+      <h3>Journal articles</h3>
+      <ol class="pubs">
+        <li><span class="num">J1</span><div><span class="t"><a href="https://www.mdpi.com/2079-9292/14/12/2480">DARC: Disturbance-Aware Redundant Control for Human–Robot Co-Transportation</a>.</span> <span class="v">Electronics</span>, 14(12):2480, 2025.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Amir Hossain Raj, Duc M. Nguyen, Xuesu Xiao, Xuan Wang</span></div></li>
+      </ol>
+    </div>
+
+    <div class="pubgroup">
+      <h3>Conference papers</h3>
+      <ol class="pubs">
+        <li><span class="num">C6</span><div><span class="t"><a href="https://arxiv.org/abs/2503.08895">Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty</a>.</span> <span class="v">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</span>, 2026.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Weizi Li, Xuan Wang</span></div></li>
+        <li><span class="num">C5</span><div><span class="t"><a href="https://ieeexplore.ieee.org/abstract/document/11246189">Human-Robot Co-Transportation using Disturbance-Aware MPC with Pose Optimization</a>.</span> <span class="v">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</span>, 2025.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Amir Hossain Raj, Duc M. Nguyen, Weizi Li, Xuesu Xiao, Xuan Wang</span></div></li>
+        <li><span class="num">C4</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/10640020">Human Uncertainty-Aware MPC for Enhanced Human-Robot Collaborative Manipulation</a>.</span> <span class="v">IEEE International Conference on Industrial Cyber-Physical Systems (ICPS)</span>, St. Louis, 2024.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Duc M. Nguyen, Filipe Veiga, Xuesu Xiao, Xuan Wang</span></div></li>
+        <li><span class="num">C3</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/9965670">Optimal Control and Performance Enhancement of DC-DC Bidirectional SEPIC Converter</a>.</span> <span class="v">IEEE 13th Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference (UEMCON)</span>, New York, 2022.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Mehedi Hasan Mithun, Md. Ashik Khan, Fahim Faisal, Mirza Muntasir Nishat, Md. Ashraful Hoque</span></div></li>
+        <li><span class="num">C2</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/9807857">Performance and Comparative Analysis of PI and PID Controller-based Single Phase PWM Inverter Using MATLAB Simulink for Variable Voltage</a>.</span> <span class="v">Second International Conference on Advances in Electrical, Computing, Communication and Sustainable Technologies (ICAECT)</span>, Bhilai, 2022.<br><span class="a">Md. Tahmid Wara Ucchas, Mehrab Mustafiz Nuhas, Md. Toufiquzzaman, <span class="me">Al Jaber Mahmud</span>, Md. Fokhrul Islam</span></div></li>
+        <li><span class="num">C1</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/9666555">Firefly Algorithm Based Optimized PID Controller for Stability Analysis of DC-DC SEPIC Converter</a>.</span> <span class="v">IEEE 12th Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference (UEMCON)</span>, New York, 2021.<br><span class="a">Md. Rafid Kayser Shagor, <span class="me">Al Jaber Mahmud</span>, Mirza Muntasir Nishat, Fahim Faisal, Mehedi Hasan Mithun, Md. Ashik Khan</span></div></li>
+      </ol>
+    </div>
+
+    <div class="pubgroup">
+      <h3>Preprints</h3>
+      <ol class="pubs">
+        <li><span class="num">P1</span><div><span class="t"><a href="https://arxiv.org/abs/2603.16028">Geometry-Aligned LLM Fine-Tuning for Sequential Narrow-Opening Planning</a>.</span> <span class="v">arXiv:2603.16028</span>, 2026.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Xuan Wang</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= TALKS + EDUCATION ================= -->
+  <section id="talks">
+    <div class="two">
+      <div>
+        <div class="sec-head"><h2>Talks &amp; posters</h2></div>
+        <ul class="timeline">
+          <li><span class="when">IROS 2026, Pittsburgh, USA</span><strong>Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty</strong><p>Conference presentation.</p></li>
+          <li><span class="when">IROS 2025, Hangzhou, China</span><strong>Human-Robot Co-Transportation using Disturbance-Aware MPC with Pose Optimization</strong><p>Presented in the Parallel and Redundant Robots I session.</p></li>
+          <li><span class="when">ICRA 2024, Yokohama, Japan</span><strong>Human-Robot Co-Transportation with Human Uncertainty-Aware MPC and Pose Optimization</strong><p>Human–Robot Co-Manipulation workshop. Best Poster Finalist.</p></li>
+          <li><span class="when">IROS 2023, Detroit, USA</span><strong>Mitigating Human Uncertainties in Human-Robot Collaborative Transportation with Whole-Body Dynamics</strong><p>Late Breaking Results, poster and oral presentation.</p></li>
+        </ul>
+      </div>
+      <div id="education">
+        <div class="sec-head"><h2>Education</h2></div>
+        <ul class="timeline">
+          <li><span class="when">George Mason University, in progress</span><strong>Ph.D., Electrical and Computer Engineering</strong><p>Passed Research Qualifying Exam, Dec 2024. Advisor: Xuan Wang.</p></li>
+          <li><span class="when">George Mason University, May 2025</span><strong>M.S., Electrical Engineering</strong><p>Concentration in Control and Robotics.</p></li>
+          <li><span class="when">Islamic University of Technology, Bangladesh, May 2022</span><strong>B.S., Electrical and Electronic Engineering</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="yr">2026</span> Al Jaber Mahmud</span>
+    <span>Last updated November 2026</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var list = document.getElementById('newsList');
+    var btn = document.getElementById('newsToggle');
+    if (!list.querySelector('.older')) { btn.hidden = true; }
+    btn.addEventListener('click', function(){
+      var open = list.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      btn.textContent = open ? 'Show less' : 'Show older news';
+    });
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  })();
+</script>
+</body>
+</html>
