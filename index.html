@@ -309,7 +309,7 @@
     <div class="sec-head"><h2>News</h2></div>
     <ul class="news" id="newsList">
       <li><time>Sep 2026</time><span>Presented our mutual-adaptation paper at <span class="venue">IROS 2026</span> in Pittsburgh, USA.</span></li>
-      <li><time>Sep 2026</time><span>Submitted two papers to <span class="venue">ICRA 2027</span>.</span></li>
+      <li><time>Sep 2026</time><span>Submitted two papers to <span class="venue">ICRA 2027</span>. One is now on arXiv: <a href="https://arxiv.org/abs/2609.30140">Contact as a Decision Variable: Capability-Tradeoff Contact Selection for Legged Loco-Manipulation</a>.</span></li>
       <li><time>Jun 2026</time><span><a href="https://arxiv.org/abs/2503.08895">Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty</a> accepted at <span class="venue">IROS 2026</span>.</span></li>
       <li><time>Mar 2026</time><span>Preprint: <a href="https://arxiv.org/abs/2603.16028">Geometry-Aligned LLM Fine-Tuning for Sequential Narrow-Opening Planning</a> is on <span class="venue">arXiv</span>.</span></li>
       <li><time>Oct 2025</time><span>Attended <span class="venue">IROS 2025</span> in Hangzhou, China.</span></li>
@@ -338,7 +338,7 @@
       <a class="theme-link" href="#theme-contact">
         <svg aria-hidden="true"><use href="#g-contact"/></svg>
         <strong>Loco-manipulation with support contacts</strong>
-        <span>Ongoing, on Unitree Go2 hardware</span>
+        <span>Under review at ICRA 2027</span>
       </a>
       <a class="theme-link" href="#theme-llm">
         <svg aria-hidden="true"><use href="#g-openings"/></svg>
@@ -422,14 +422,15 @@
       <article class="paper">
         <figure class="thumb">
           <svg aria-hidden="true"><use href="#g-contact"/></svg>
-          <img src="images/ctcs.jpg" alt="Unitree Go2 with AgileX NERO arm" onerror="this.remove()">
+          <img src="images/ctcs.jpg" alt="Unitree Go2 with AgileX NERO arm bracing against a support surface" onerror="this.remove()">
         </figure>
         <div>
-          <div class="meta"><span class="badge wip">Ongoing</span><span class="badge">Hardware</span></div>
-          <h4>CTCS: Whole-body optimization for environmental support contacts</h4>
-          <p class="summary">Selects support contacts by scoring each candidate on wrench, reach, and mobility capability. Evaluated on a Unitree Go2 carrying an AgileX NERO arm, in simulation and on hardware across 392 tasks, running 3× faster than exhaustive search. Includes ROS 2 packages for arm actuation, robot-state feedback, command validation, and Go2 integration.</p>
-          <ul class="tags"><li>Whole-body optimization</li><li>Contact planning</li><li>Legged manipulation</li><li>ROS 2</li></ul>
-          <div class="plinks"><span class="muted">Paper coming soon</span></div>
+          <div class="meta"><span class="badge">ICRA 2027, under review</span><span class="badge first">First author</span><span class="badge">Hardware</span></div>
+          <h4><a href="https://arxiv.org/abs/2609.30140">Contact as a Decision Variable: Capability-Tradeoff Contact Selection for Legged Loco-Manipulation</a></h4>
+          <p class="authors"><span class="me">Al Jaber Mahmud</span>, Shuai Li, Xuan Wang</p>
+          <p class="summary">A legged manipulator chooses where to brace and how to pose its whole body together, scoring each option on leftover wrench, end-effector reach, and remaining base mobility against the cost of making contact. Capability-Tradeoff Contact Selection (CTCS) avoids solving the full optimization for every candidate: it filters and groups candidates, predicts their capabilities from a few exact anchor solves with local sensitivity analysis, and solves only a verified shortlist exactly. On a Unitree Go2 with an AgileX NERO arm, across 392 task conditions and nine support surfaces, CTCS outperformed ground-only and fixed-contact support and ran about 3&times; faster than exhaustive evaluation while nearly matching its objective.</p>
+          <ul class="tags"><li>Contact selection</li><li>Whole-body optimization</li><li>Legged loco-manipulation</li><li>Sensitivity analysis</li><li>ROS 2</li></ul>
+          <div class="plinks"><a href="https://arxiv.org/abs/2609.30140">Paper</a><a href="https://arxiv.org/pdf/2609.30140">PDF</a></div>
         </div>
       </article>
     </div>
@@ -502,6 +503,7 @@
     <div class="pubgroup">
       <h3>Preprints</h3>
       <ol class="pubs">
+        <li><span class="num">P2</span><div><span class="t"><a href="https://arxiv.org/abs/2609.30140">Contact as a Decision Variable: Capability-Tradeoff Contact Selection for Legged Loco-Manipulation</a>.</span> <span class="v">arXiv:2609.30140</span>, 2026. Under review at ICRA 2027.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Shuai Li, Xuan Wang</span></div></li>
         <li><span class="num">P1</span><div><span class="t"><a href="https://arxiv.org/abs/2603.16028">Geometry-Aligned LLM Fine-Tuning for Sequential Narrow-Opening Planning</a>.</span> <span class="v">arXiv:2603.16028</span>, 2026.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Xuan Wang</span></div></li>
       </ol>
     </div>
