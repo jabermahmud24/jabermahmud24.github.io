@@ -30,6 +30,14 @@ All images live in `images/`. Figures come from Figure 1 of each paper (Figure 2
 
 To swap a picture, upload a new file with the same name. Visitors can click any project figure to see it full size.
 
+## Interactive demos
+
+The three demos in the Research section and the other page interactions live in `assets/site.js` (plain JavaScript, no libraries). Each demo only animates while it's on screen, and visitors with "reduce motion" turned on get static frames.
+
+- **Co-transportation** (`demoMutual`): the robot leads until its stubbornness estimate passes the threshold, then follows. Visitors drag to steer the person.
+- **Support contact** (`demoContact`): a toy tipping model. The force limits are illustrative (`LIMIT` near the top of that function).
+- **Narrow openings** (`NARROW`): waypoint plans for the bar. Every plan is checked against the walls, so a new plan's outcome is computed, not scripted.
+
 ## Common edits (all in `index.html`)
 
 - **Add your email:** search for `Add your email` and uncomment the line under it.

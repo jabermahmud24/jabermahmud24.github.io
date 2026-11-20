@@ -52,15 +52,25 @@
   .nav ul a:hover{color:#fff}
 
   /* ---------- hero ---------- */
-  .hero{background:var(--night); color:var(--on-night);
+  .hero{position:relative; overflow:hidden; background:var(--night); color:var(--on-night);
     background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
     background-size:32px 32px}
-  .hero .wrap{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.02fr); gap:56px; align-items:center; padding-top:64px; padding-bottom:72px}
+  .hero::before{content:""; position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .5s;
+    background:radial-gradient(460px circle at var(--mx,50%) var(--my,50%), rgba(242,182,50,.13), transparent 62%)}
+  .hero.lit::before{opacity:1}
+  .hero .wrap{position:relative; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.02fr); gap:56px; align-items:center; padding-top:64px; padding-bottom:72px}
   .ident{display:flex; align-items:center; gap:20px; margin-bottom:26px}
   .avatar{width:92px; height:92px; border-radius:50%; overflow:hidden; flex:none; box-shadow:0 0 0 3px var(--night), 0 0 0 5px var(--amber); background:var(--night-2)}
   .avatar img{width:100%; height:100%; object-fit:cover}
   .hero h1{font-size:clamp(2.2rem, 4vw, 3.1rem); font-weight:700; letter-spacing:-.02em; color:#fff}
   .role{font:500 1rem/1.45 var(--sans); color:var(--on-night-muted); margin-top:6px}
+  .tagline{font:600 clamp(1.35rem,2.4vw,1.75rem)/1.3 var(--sans); color:#fff; letter-spacing:-.01em; margin:0 0 18px}
+  .cycle{display:inline-grid; vertical-align:top}
+  .cycle > span{grid-area:1/1; opacity:0; transform:translateY(.35em); transition:opacity .45s ease, transform .45s ease; position:relative; padding-bottom:6px}
+  .cycle > span.on{opacity:1; transform:none}
+  .cycle > span::after{content:""; position:absolute; left:0; bottom:0; height:3px; width:0; background:var(--amber); border-radius:2px}
+  .cycle > span.on::after{animation:fill 3.2s linear forwards}
+  @keyframes fill{to{width:100%}}
   .bio{max-width:58ch; margin:0 0 26px}
   .bio p{margin:0 0 12px}
   .hero .bio a{color:#fff; text-decoration-color:var(--amber)}
@@ -76,10 +86,14 @@
   .tile:first-child{grid-row:1 / span 2}
   .tile:nth-child(2){animation-delay:.12s}
   .tile:nth-child(3){animation-delay:.24s}
-  .tile img{width:100%; height:100%; object-fit:cover}
+  .tile img{width:100%; height:100%; object-fit:cover; transition:transform .8s ease}
+  .tile{transition:filter .6s ease, box-shadow .6s ease; outline:none}
+  .hero.cycling .tile:not(.on){filter:grayscale(.55) brightness(.62)}
+  .tile.on{box-shadow:0 0 0 2px var(--amber)}
+  .tile.on img{transform:scale(1.035)}
   .tile figcaption{position:absolute; left:10px; bottom:10px; right:10px; font:500 .8125rem/1.35 var(--sans); color:#fff; background:rgba(18,27,39,.78); backdrop-filter:blur(4px); padding:6px 10px; border-radius:7px; width:fit-content; max-width:calc(100% - 20px)}
   @keyframes rise{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
-  @media (prefers-reduced-motion:reduce){.tile{animation:none}}
+  @media (prefers-reduced-motion:reduce){.tile{animation:none}.cycle > span.on::after{animation:none; width:100%}.tile.on img{transform:none}}
 
   /* ---------- sections ---------- */
   section{padding:64px 0; border-top:1px solid var(--rule)}
@@ -102,10 +116,32 @@
   /* research */
   .question{margin:0 0 18px; padding:4px 0 4px 22px; border-left:4px solid var(--amber); font:italic 400 clamp(1.3rem,2.4vw,1.65rem)/1.4 var(--serif); max-width:40ch}
   .lede{max-width:var(--measure); margin:0 0 28px}
-  .theme-nav{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 48px; padding:0; list-style:none}
+  .theme-nav{position:sticky; top:56px; z-index:6; display:flex; flex-wrap:wrap; gap:8px; margin:0 0 40px; padding:10px 0; list-style:none; background:rgba(245,246,243,.92); backdrop-filter:blur(8px)}
   .theme-nav a{display:inline-flex; align-items:center; gap:8px; font:500 .9375rem var(--sans); color:var(--ink); text-decoration:none; padding:8px 14px; border:1px solid var(--rule); border-radius:999px; background:var(--panel)}
   .theme-nav a:hover{border-color:var(--ink)}
   .theme-nav .n{font-size:.8125rem; color:var(--slate); background:var(--paper); border-radius:999px; padding:1px 8px}
+  .theme-nav a{transition:background .2s, color .2s, border-color .2s; white-space:nowrap}
+  .theme-nav a.active{background:var(--ink); color:#fff; border-color:var(--ink)}
+  .theme-nav a.active .n{background:rgba(255,255,255,.16); color:#fff}
+
+  .theme-top{display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:40px; align-items:start; margin-bottom:8px}
+  .demo{margin:0; background:var(--panel); border:1px solid var(--rule); border-radius:14px; padding:12px; box-shadow:0 1px 0 rgba(22,32,46,.04), 0 12px 28px -18px rgba(22,32,46,.25)}
+  .demo canvas{display:block; width:100%; height:auto; aspect-ratio:16/10; border-radius:8px; background:#fff}
+  .demo.wide canvas{aspect-ratio:16/9}
+  #demo-mutual canvas{touch-action:none; cursor:grab}
+  #demo-mutual canvas:active{cursor:grabbing}
+  .demo-bar{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; margin:12px 2px 0}
+  .dbtn{font:600 .875rem var(--sans); color:var(--ink); background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:6px 12px; cursor:pointer}
+  .dbtn:hover{border-color:var(--ink)}
+  .dbtn[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink)}
+  .seg{display:inline-flex; gap:4px}
+  .demo-bar label{display:inline-flex; align-items:center; gap:8px; font:500 .875rem var(--sans); color:var(--slate)}
+  .demo-bar input[type=range]{accent-color:var(--amber); width:140px}
+  .demo-bar output{font:600 .875rem var(--sans); color:var(--ink); min-width:3.2em; font-variant-numeric:tabular-nums}
+  .demo figcaption{font:400 .875rem/1.5 var(--sans); color:var(--slate); margin:10px 2px 0}
+  .demo figcaption strong{color:var(--ink); font-weight:600}
+  .demo [data-status]{display:block; color:var(--ink); margin-top:2px; min-height:1.5em}
+  .theme-head p.try{font:500 .9375rem var(--sans); color:var(--teal); margin-top:14px}
 
   .theme{margin-bottom:64px}
   .theme:last-child{margin-bottom:0}
@@ -114,10 +150,10 @@
   .theme-head p{margin:0; color:#2B3644}
 
   .project{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); gap:36px; padding:32px 0; border-top:1px solid var(--rule); align-items:start}
-  .theme-head + .project{border-top:0}
   .fig{position:relative; display:block; width:100%; padding:12px; margin:0; background:var(--panel); border:1px solid var(--rule); border-radius:12px; cursor:zoom-in; font:inherit; text-align:left}
   .fig:hover{border-color:#B9C1C9}
-  .fig img{width:100%; height:auto; max-height:330px; object-fit:contain; border-radius:4px}
+  .fig img{width:100%; height:auto; max-height:330px; object-fit:contain; border-radius:4px; transition:transform .4s ease}
+  .fig:hover img{transform:scale(1.015)}
   .fig .zoom{position:absolute; top:18px; right:18px; display:flex; align-items:center; gap:5px; font:500 .75rem var(--sans); color:#fff; background:rgba(18,27,39,.8); padding:4px 8px; border-radius:6px; opacity:0; transition:opacity .15s}
   .fig:hover .zoom, .fig:focus-visible .zoom{opacity:1}
   .fig .zoom svg{width:12px; height:12px}
@@ -165,6 +201,14 @@
   .pubs .v{font-style:italic}
   .pubs .a{font-family:var(--sans); font-size:.9375rem; color:var(--slate)}
   .pubs .flag{font:600 .8125rem var(--sans); color:var(--teal)}
+  .cite{margin-top:6px}
+  .cite summary{display:inline-block; list-style:none; cursor:pointer; font:600 .8125rem var(--sans); color:var(--teal); padding:2px 0}
+  .cite summary::-webkit-details-marker{display:none}
+  .cite summary:hover{text-decoration:underline; text-underline-offset:3px}
+  .cite[open] summary{color:var(--ink)}
+  .cite-box{margin-top:8px; background:var(--night); border-radius:10px; padding:12px 14px; max-width:720px}
+  .cite-box pre{margin:0 0 10px; font:400 .8125rem/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:#D9DEE5; white-space:pre-wrap; word-break:break-word}
+  .cite-box button{font:600 .8125rem var(--sans); color:var(--ink); background:var(--amber); border:0; border-radius:7px; padding:6px 12px; cursor:pointer}
 
   /* talks + education */
   .two{display:grid; grid-template-columns:1fr 1fr; gap:56px}
@@ -189,6 +233,7 @@
     .hero .wrap{grid-template-columns:1fr; gap:36px; padding-top:44px; padding-bottom:52px}
     .mosaic{height:380px}
     .project{grid-template-columns:1fr; gap:20px}
+    .theme-top{grid-template-columns:1fr; gap:22px}
     .videos{grid-template-columns:1fr 1fr}
     .two{grid-template-columns:1fr; gap:40px}
   }
@@ -200,6 +245,8 @@
     .news li{grid-template-columns:1fr; gap:0}
     .sec-head{flex-direction:column; gap:4px}
     .videos{grid-template-columns:1fr}
+    .theme-nav{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none}
+    .demo-bar input[type=range]{width:110px}
   }
 </style>
 </head>
@@ -236,9 +283,9 @@
           <div class="role">Ph.D. student, Electrical &amp; Computer Engineering<br>George Mason University</div>
         </div>
       </div>
+      <p class="tagline">I build robots that <span class="cycle"><span data-i="0" class="on">carry loads with people.</span><span data-i="1" aria-hidden="true">brace against the world.</span><span data-i="2" aria-hidden="true">stay steady when pushed.</span></span></p>
       <div class="bio">
-        <p>I'm a graduate research assistant in the <a href="https://mason.gmu.edu/~xwang64/index.html">MICO Lab</a> (Multi-agent Intelligence, Control, and Optimization), advised by Prof. Xuan Wang. I build robots that work physically with people and with their surroundings: a mobile manipulator that carries a load together with a person, or a legged robot that braces against a wall to reach farther.</p>
-        <p>My work spans planning, control, and learning, including MPC, whole-body optimization, and fine-tuned language models, and I take it to real hardware with ROS 2.</p>
+        <p>I'm a graduate research assistant in the <a href="https://mason.gmu.edu/~xwang64/index.html">MICO Lab</a> (Multi-agent Intelligence, Control, and Optimization), advised by Prof. Xuan Wang. My work spans planning, control, and learning, including MPC, whole-body optimization, and fine-tuned language models, and I take it to real hardware with ROS 2.</p>
       </div>
       <ul class="links">
         <li><a class="primary" href="https://drive.google.com/file/d/137fPS8Ast1CToqQZFTfhrD2gHrDY2rYj/view?usp=sharing"><svg><use href="#i-doc"/></svg>CV</a></li>
@@ -257,15 +304,15 @@
     </div>
 
     <div class="mosaic">
-      <figure class="tile">
+      <figure class="tile" tabindex="0">
         <img src="images/hero-cotransport.webp" alt="A person and a Fetch mobile manipulator carrying a wooden tray with a cup on it">
         <figcaption>Carrying a load together with a person (Fetch)</figcaption>
       </figure>
-      <figure class="tile">
+      <figure class="tile" tabindex="0">
         <img src="images/hero-go2.webp" alt="Unitree Go2 quadruped with an AgileX NERO arm bracing against a cabinet" style="object-position:50% 80%">
         <figcaption>Bracing against a cabinet (Go2 + NERO arm)</figcaption>
       </figure>
-      <figure class="tile">
+      <figure class="tile" tabindex="0">
         <img src="images/hero-tray.webp" alt="Close-up of the Fetch gripper holding a tray with a cup while a person holds the other side" style="object-position:40% 50%">
         <figcaption>Disturbance-aware MPC on hardware</figcaption>
       </figure>
@@ -307,9 +354,20 @@
 
     <!-- ---------- THEME 1 ---------- -->
     <div class="theme" id="theme-hrc">
-      <div class="theme-head">
-        <h3>Human–robot co-transportation</h3>
-        <p>Carrying something together is easy for two people and hard for a person and a robot. The robot sees its partner only through the forces and motion they put into the shared object. I model that uncertainty directly, with planners that anticipate disturbances and controllers that decide when the robot should lead and when it should follow.</p>
+      <div class="theme-top">
+        <div class="theme-head">
+          <h3>Human–robot co-transportation</h3>
+          <p>Carrying something together is easy for two people and hard for a person and a robot. The robot sees its partner only through the forces and motion they put into the shared object. I model that uncertainty directly, with planners that anticipate disturbances and controllers that decide when the robot should lead and when it should follow.</p>
+          <p class="try">The demo shows the idea behind the IROS 2026 paper: the robot leads until the person is persistent enough, then it follows.</p>
+        </div>
+        <figure class="demo" id="demo-mutual">
+          <canvas role="img" aria-label="Top-down simulation: a person (H) and a robot (R) carry a board around an obstacle toward a goal. A meter shows the robot's estimate of the person's stubbornness."></canvas>
+          <div class="demo-bar">
+            <button class="dbtn" type="button" data-restart>Restart</button>
+            <label>Robot yields at <input type="range" min="0.3" max="0.9" step="0.05" value="0.6" data-threshold aria-label="Stubbornness threshold"><output data-threshold-out>60%</output></label>
+          </div>
+          <figcaption><strong>Try it:</strong> press and drag on the floor to steer the person.<span data-status aria-live="polite"></span></figcaption>
+        </figure>
       </div>
 
       <!-- To add a project, copy one <article class="project"> block and edit it. -->
@@ -394,9 +452,20 @@
 
     <!-- ---------- THEME 2 ---------- -->
     <div class="theme" id="theme-contact">
-      <div class="theme-head">
-        <h3>Loco-manipulation with support contacts</h3>
-        <p>A legged manipulator can push harder and reach farther if it's allowed to lean on its surroundings. The question is which surface to use and how, since every choice trades force capacity against reach and freedom to move.</p>
+      <div class="theme-top">
+        <div class="theme-head">
+          <h3>Loco-manipulation with support contacts</h3>
+          <p>A legged manipulator can push harder and reach farther if it's allowed to lean on its surroundings. The question is which surface to use and how, since every choice trades force capacity against reach and freedom to move.</p>
+          <p class="try">Pull harder with and without a brace to see why a support contact matters.</p>
+        </div>
+        <figure class="demo wide" id="demo-contact">
+          <canvas role="img" aria-label="Side view of a quadruped with an arm pulling a drawer handle. Without a support contact it tips over at high force; braced on the cabinet it holds."></canvas>
+          <div class="demo-bar">
+            <span class="seg" role="group" aria-label="Support"><button class="dbtn" type="button" data-brace="off" aria-pressed="true">Ground only</button><button class="dbtn" type="button" data-brace="on" aria-pressed="false">Brace on cabinet</button></span>
+            <label>Pull <input type="range" min="0" max="60" step="1" value="0" data-force aria-label="Pull force in newtons"><output data-force-out>0 N</output></label>
+          </div>
+          <figcaption><strong>Toy model</strong> for intuition. The force limits are illustrative, not results from the paper.<span data-status aria-live="polite"></span></figcaption>
+        </figure>
       </div>
 
       <article class="project">
@@ -420,9 +489,19 @@
 
     <!-- ---------- THEME 3 ---------- -->
     <div class="theme" id="theme-llm">
-      <div class="theme-head">
-        <h3>Language models for geometric planning</h3>
-        <p>Language models propose plans quickly, but they don't natively respect geometry. I fine-tune them against a geometric verifier so that what they propose is physically feasible.</p>
+      <div class="theme-top">
+        <div class="theme-head">
+          <h3>Language models for geometric planning</h3>
+          <p>Language models propose plans quickly, but they don't natively respect geometry. I fine-tune them against a geometric verifier so that what they propose is physically feasible.</p>
+          <p class="try">Play each plan to see the failure modes a geometric verifier catches.</p>
+        </div>
+        <figure class="demo" id="demo-narrow">
+          <canvas role="img" aria-label="Top-down view of a bar moving through three narrow wall openings along planned waypoints."></canvas>
+          <div class="demo-bar">
+            <span class="seg" role="group" aria-label="Plan"><button class="dbtn" type="button" data-plan="collide" aria-pressed="false">Base model, try 1</button><button class="dbtn" type="button" data-plan="outside" aria-pressed="false">Base model, try 2</button><button class="dbtn" type="button" data-plan="tuned" aria-pressed="false">Fine-tuned</button></span>
+          </div>
+          <figcaption><strong>Illustration</strong> of the task in the paper's Fig. 1: waypoints (teal dots) for moving a bar through gaps in sequence.<span data-status aria-live="polite"></span></figcaption>
+        </figure>
       </div>
 
       <article class="project">
@@ -471,27 +550,79 @@
     <div class="pubgroup">
       <h3>Under review</h3>
       <ol class="pubs">
-        <li><span class="num">P2</span><div><span class="t"><a href="https://arxiv.org/abs/2609.30140">Contact as a Decision Variable: Capability-Tradeoff Contact Selection for Legged Loco-Manipulation</a>.</span> <span class="v">arXiv:2609.30140</span>, 2026. <span class="flag">Under review at ICRA 2027.</span><br><span class="a"><span class="me">Al Jaber Mahmud</span>, Shuai Li, Xuan Wang</span></div></li>
-        <li><span class="num">P1</span><div><span class="t"><a href="https://arxiv.org/abs/2603.16028">Geometry-Aligned LLM Fine-Tuning for Sequential Narrow-Opening Planning</a>.</span> <span class="v">arXiv:2603.16028</span>, 2026. <span class="flag">Under review at ICRA 2027.</span><br><span class="a"><span class="me">Al Jaber Mahmud</span>, Xuan Wang</span></div></li>
+        <li><span class="num">P2</span><div><span class="t"><a href="https://arxiv.org/abs/2609.30140">Contact as a Decision Variable: Capability-Tradeoff Contact Selection for Legged Loco-Manipulation</a>.</span> <span class="v">arXiv:2609.30140</span>, 2026. <span class="flag">Under review at ICRA 2027.</span><br><span class="a"><span class="me">Al Jaber Mahmud</span>, Shuai Li, Xuan Wang</span><details class="cite"><summary>Cite</summary><div class="cite-box"><pre>@misc{mahmud2026contact,
+  title         = {Contact as a Decision Variable: Capability-Tradeoff Contact Selection for Legged Loco-Manipulation},
+  author        = {Mahmud, Al Jaber and Li, Shuai and Wang, Xuan},
+  year          = {2026},
+  eprint        = {2609.30140},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO}
+}</pre><button type="button">Copy BibTeX</button></div></details></div></li>
+        <li><span class="num">P1</span><div><span class="t"><a href="https://arxiv.org/abs/2603.16028">Geometry-Aligned LLM Fine-Tuning for Sequential Narrow-Opening Planning</a>.</span> <span class="v">arXiv:2603.16028</span>, 2026. <span class="flag">Under review at ICRA 2027.</span><br><span class="a"><span class="me">Al Jaber Mahmud</span>, Xuan Wang</span><details class="cite"><summary>Cite</summary><div class="cite-box"><pre>@misc{mahmud2026geometry,
+  title         = {Geometry-Aligned {LLM} Fine-Tuning for Sequential Narrow-Opening Planning},
+  author        = {Mahmud, Al Jaber and Wang, Xuan},
+  year          = {2026},
+  eprint        = {2603.16028},
+  archivePrefix = {arXiv}
+}</pre><button type="button">Copy BibTeX</button></div></details></div></li>
       </ol>
     </div>
 
     <div class="pubgroup">
       <h3>Journal articles</h3>
       <ol class="pubs">
-        <li><span class="num">J1</span><div><span class="t"><a href="https://www.mdpi.com/2079-9292/14/12/2480">DARC: Disturbance-Aware Redundant Control for Human–Robot Co-Transportation</a>.</span> <span class="v">Electronics</span>, 14(12):2480, 2025.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Amir Hossain Raj, Duc M. Nguyen, Xuesu Xiao, Xuan Wang</span></div></li>
+        <li><span class="num">J1</span><div><span class="t"><a href="https://www.mdpi.com/2079-9292/14/12/2480">DARC: Disturbance-Aware Redundant Control for Human–Robot Co-Transportation</a>.</span> <span class="v">Electronics</span>, 14(12):2480, 2025.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Amir Hossain Raj, Duc M. Nguyen, Xuesu Xiao, Xuan Wang</span><details class="cite"><summary>Cite</summary><div class="cite-box"><pre>@article{mahmud2025darc,
+  title     = {{DARC}: Disturbance-Aware Redundant Control for Human--Robot Co-Transportation},
+  author    = {Mahmud, Al Jaber and Raj, Amir Hossain and Nguyen, Duc M. and Xiao, Xuesu and Wang, Xuan},
+  journal   = {Electronics},
+  volume    = {14},
+  number    = {12},
+  pages     = {2480},
+  year      = {2025},
+  publisher = {MDPI}
+}</pre><button type="button">Copy BibTeX</button></div></details></div></li>
       </ol>
     </div>
 
     <div class="pubgroup">
       <h3>Conference papers</h3>
       <ol class="pubs">
-        <li><span class="num">C6</span><div><span class="t"><a href="https://arxiv.org/abs/2503.08895">Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty</a>.</span> <span class="v">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</span>, 2026.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Weizi Li, Xuan Wang</span></div></li>
-        <li><span class="num">C5</span><div><span class="t"><a href="https://ieeexplore.ieee.org/abstract/document/11246189">Human-Robot Co-Transportation using Disturbance-Aware MPC with Pose Optimization</a>.</span> <span class="v">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</span>, Hangzhou, 2025.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Amir Hossain Raj, Duc M. Nguyen, Weizi Li, Xuesu Xiao, Xuan Wang</span></div></li>
-        <li><span class="num">C4</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/10640020">Human Uncertainty-Aware MPC for Enhanced Human-Robot Collaborative Manipulation</a>.</span> <span class="v">IEEE International Conference on Industrial Cyber-Physical Systems (ICPS)</span>, St. Louis, 2024.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Duc M. Nguyen, Filipe Veiga, Xuesu Xiao, Xuan Wang</span></div></li>
-        <li><span class="num">C3</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/9965670">Optimal Control and Performance Enhancement of DC-DC Bidirectional SEPIC Converter</a>.</span> <span class="v">IEEE 13th Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference (UEMCON)</span>, New York, 2022.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Mehedi Hasan Mithun, Md. Ashik Khan, Fahim Faisal, Mirza Muntasir Nishat, Md. Ashraful Hoque</span></div></li>
-        <li><span class="num">C2</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/9807857">Performance and Comparative Analysis of PI and PID Controller-based Single Phase PWM Inverter Using MATLAB Simulink for Variable Voltage</a>.</span> <span class="v">Second International Conference on Advances in Electrical, Computing, Communication and Sustainable Technologies (ICAECT)</span>, Bhilai, 2022.<br><span class="a">Md. Tahmid Wara Ucchas, Mehrab Mustafiz Nuhas, Md. Toufiquzzaman, <span class="me">Al Jaber Mahmud</span>, Md. Fokhrul Islam</span></div></li>
-        <li><span class="num">C1</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/9666555">Firefly Algorithm Based Optimized PID Controller for Stability Analysis of DC-DC SEPIC Converter</a>.</span> <span class="v">IEEE 12th Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference (UEMCON)</span>, New York, 2021.<br><span class="a">Md. Rafid Kayser Shagor, <span class="me">Al Jaber Mahmud</span>, Mirza Muntasir Nishat, Fahim Faisal, Mehedi Hasan Mithun, Md. Ashik Khan</span></div></li>
+        <li><span class="num">C6</span><div><span class="t"><a href="https://arxiv.org/abs/2503.08895">Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty</a>.</span> <span class="v">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</span>, 2026.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Weizi Li, Xuan Wang</span><details class="cite"><summary>Cite</summary><div class="cite-box"><pre>@inproceedings{mahmud2026mutual,
+  title     = {Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty},
+  author    = {Mahmud, Al Jaber and Li, Weizi and Wang, Xuan},
+  booktitle = {IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year      = {2026}
+}</pre><button type="button">Copy BibTeX</button></div></details></div></li>
+        <li><span class="num">C5</span><div><span class="t"><a href="https://ieeexplore.ieee.org/abstract/document/11246189">Human-Robot Co-Transportation using Disturbance-Aware MPC with Pose Optimization</a>.</span> <span class="v">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</span>, Hangzhou, 2025.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Amir Hossain Raj, Duc M. Nguyen, Weizi Li, Xuesu Xiao, Xuan Wang</span><details class="cite"><summary>Cite</summary><div class="cite-box"><pre>@inproceedings{mahmud2025cotransport,
+  title     = {Human-Robot Co-Transportation using Disturbance-Aware {MPC} with Pose Optimization},
+  author    = {Mahmud, Al Jaber and Raj, Amir Hossain and Nguyen, Duc M. and Li, Weizi and Xiao, Xuesu and Wang, Xuan},
+  booktitle = {IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year      = {2025}
+}</pre><button type="button">Copy BibTeX</button></div></details></div></li>
+        <li><span class="num">C4</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/10640020">Human Uncertainty-Aware MPC for Enhanced Human-Robot Collaborative Manipulation</a>.</span> <span class="v">IEEE International Conference on Industrial Cyber-Physical Systems (ICPS)</span>, St. Louis, 2024.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Duc M. Nguyen, Filipe Veiga, Xuesu Xiao, Xuan Wang</span><details class="cite"><summary>Cite</summary><div class="cite-box"><pre>@inproceedings{mahmud2024uncertainty,
+  title     = {Human Uncertainty-Aware {MPC} for Enhanced Human-Robot Collaborative Manipulation},
+  author    = {Mahmud, Al Jaber and Nguyen, Duc M. and Veiga, Filipe and Xiao, Xuesu and Wang, Xuan},
+  booktitle = {IEEE International Conference on Industrial Cyber-Physical Systems (ICPS)},
+  year      = {2024}
+}</pre><button type="button">Copy BibTeX</button></div></details></div></li>
+        <li><span class="num">C3</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/9965670">Optimal Control and Performance Enhancement of DC-DC Bidirectional SEPIC Converter</a>.</span> <span class="v">IEEE 13th Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference (UEMCON)</span>, New York, 2022.<br><span class="a"><span class="me">Al Jaber Mahmud</span>, Mehedi Hasan Mithun, Md. Ashik Khan, Fahim Faisal, Mirza Muntasir Nishat, Md. Ashraful Hoque</span><details class="cite"><summary>Cite</summary><div class="cite-box"><pre>@inproceedings{mahmud2022sepic,
+  title     = {Optimal Control and Performance Enhancement of {DC-DC} Bidirectional {SEPIC} Converter},
+  author    = {Mahmud, Al Jaber and Mithun, Mehedi Hasan and Khan, Md. Ashik and Faisal, Fahim and Nishat, Mirza Muntasir and Hoque, Md. Ashraful},
+  booktitle = {IEEE 13th Annual Ubiquitous Computing, Electronics \&amp; Mobile Communication Conference (UEMCON)},
+  year      = {2022}
+}</pre><button type="button">Copy BibTeX</button></div></details></div></li>
+        <li><span class="num">C2</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/9807857">Performance and Comparative Analysis of PI and PID Controller-based Single Phase PWM Inverter Using MATLAB Simulink for Variable Voltage</a>.</span> <span class="v">Second International Conference on Advances in Electrical, Computing, Communication and Sustainable Technologies (ICAECT)</span>, Bhilai, 2022.<br><span class="a">Md. Tahmid Wara Ucchas, Mehrab Mustafiz Nuhas, Md. Toufiquzzaman, <span class="me">Al Jaber Mahmud</span>, Md. Fokhrul Islam</span><details class="cite"><summary>Cite</summary><div class="cite-box"><pre>@inproceedings{ucchas2022inverter,
+  title     = {Performance and Comparative Analysis of {PI} and {PID} Controller-based Single Phase {PWM} Inverter Using {MATLAB} {Simulink} for Variable Voltage},
+  author    = {Ucchas, Md. Tahmid Wara and Nuhas, Mehrab Mustafiz and Toufiquzzaman, Md. and Mahmud, Al Jaber and Islam, Md. Fokhrul},
+  booktitle = {Second International Conference on Advances in Electrical, Computing, Communication and Sustainable Technologies (ICAECT)},
+  year      = {2022}
+}</pre><button type="button">Copy BibTeX</button></div></details></div></li>
+        <li><span class="num">C1</span><div><span class="t"><a href="https://ieeexplore.ieee.org/document/9666555">Firefly Algorithm Based Optimized PID Controller for Stability Analysis of DC-DC SEPIC Converter</a>.</span> <span class="v">IEEE 12th Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference (UEMCON)</span>, New York, 2021.<br><span class="a">Md. Rafid Kayser Shagor, <span class="me">Al Jaber Mahmud</span>, Mirza Muntasir Nishat, Fahim Faisal, Mehedi Hasan Mithun, Md. Ashik Khan</span><details class="cite"><summary>Cite</summary><div class="cite-box"><pre>@inproceedings{shagor2021firefly,
+  title     = {Firefly Algorithm Based Optimized {PID} Controller for Stability Analysis of {DC-DC} {SEPIC} Converter},
+  author    = {Shagor, Md. Rafid Kayser and Mahmud, Al Jaber and Nishat, Mirza Muntasir and Faisal, Fahim and Mithun, Mehedi Hasan and Khan, Md. Ashik},
+  booktitle = {IEEE 12th Annual Ubiquitous Computing, Electronics \&amp; Mobile Communication Conference (UEMCON)},
+  year      = {2021}
+}</pre><button type="button">Copy BibTeX</button></div></details></div></li>
       </ol>
     </div>
   </section>
@@ -532,29 +663,6 @@
   <button type="button" id="lbClose">Close</button>
 </dialog>
 
-<script>
-  (function(){
-    var list = document.getElementById('newsList');
-    var btn = document.getElementById('newsToggle');
-    btn.addEventListener('click', function(){
-      var open = list.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open);
-      btn.textContent = open ? 'Show less' : 'Show older news';
-    });
-
-    var lb = document.getElementById('lb'), img = document.getElementById('lbImg'), cap = document.getElementById('lbCap');
-    document.querySelectorAll('.fig').forEach(function(b){
-      b.addEventListener('click', function(){
-        var src = b.querySelector('img');
-        img.src = src.src; img.alt = src.alt; cap.textContent = b.dataset.caption || '';
-        if (lb.showModal) lb.showModal();
-      });
-    });
-    document.getElementById('lbClose').addEventListener('click', function(){ lb.close(); });
-    lb.addEventListener('click', function(e){ if (e.target === lb) lb.close(); });
-
-    document.getElementById('yr').textContent = new Date().getFullYear();
-  })();
-</script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>
